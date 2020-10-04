@@ -35,10 +35,9 @@ func _physics_process(delta):
 	
 	get_input()
 
+	velocity.y += delta * GRAVITY
 	if is_gliding:
-		velocity.y += delta * GLIDE_SPEED
-	else:
-		velocity.y += delta * GRAVITY
+		velocity.y = min(velocity.y, GLIDE_SPEED)
 	
 	if velocity.x > 0:
 		$Sprite.flip_h = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://Assets/tileset.png" type="Texture" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Assets/axe.png" type="Texture" id=6]
 [ext_resource path="res://Tree.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/climbing_gear.png" type="Texture" id=8]
+[ext_resource path="res://Assets/kite.png" type="Texture" id=9]
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -333,6 +334,9 @@ extents = Vector2( 12.8637, 14.4601 )
 [sub_resource type="RectangleShape2D" id=39]
 extents = Vector2( 15.8392, 7.05673 )
 
+[sub_resource type="RectangleShape2D" id=40]
+extents = Vector2( 12.2308, 11.4761 )
+
 [sub_resource type="Animation" id=38]
 resource_name = "fall"
 length = 3.0
@@ -388,9 +392,11 @@ scale = Vector2( 0.5, 0.5 )
 
 [node name="Feather1" parent="Stage1/Feathers" instance=ExtResource( 5 )]
 position = Vector2( 640, 730 )
+script = null
 
 [node name="Feather2" parent="Stage1/Feathers" instance=ExtResource( 5 )]
 position = Vector2( 1430.95, 344.389 )
+script = null
 
 [node name="Items" type="Node2D" parent="Stage1"]
 
@@ -419,6 +425,19 @@ texture = ExtResource( 8 )
 position = Vector2( 0.707909, 7.90495 )
 shape = SubResource( 39 )
 
+[node name="Kite" type="Area2D" parent="Stage1/Items"]
+position = Vector2( 364.941, 750.954 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Stage1/Items/Kite"]
+texture = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stage1/Items/Kite"]
+position = Vector2( 0.943871, 3.30356 )
+shape = SubResource( 40 )
+
 [node name="Tree" parent="Stage1" instance=ExtResource( 7 )]
 position = Vector2( 1291.31, 62.8981 )
 scale = Vector2( 2, 2 )
@@ -445,6 +464,9 @@ region_rect = Rect2( 0, 0, 2000, 1000 )
 anims/fall = SubResource( 38 )
 [connection signal="body_entered" from="Stage1/Ground/LeftZone" to="." method="_on_Ground1_LeftZone_entered"]
 [connection signal="body_entered" from="Stage1/Ground/RightZone" to="." method="_on_Ground1_RightZone_entered"]
+[connection signal="body_entered" from="Stage1/Feathers/Feather1" to="." method="_on_Feather1_collected"]
+[connection signal="body_entered" from="Stage1/Feathers/Feather2" to="." method="_on_Feather2_collected"]
 [connection signal="body_entered" from="Stage1/Items/Axe" to="." method="_on_Axe_collected"]
 [connection signal="body_entered" from="Stage1/Items/ClimbingGear" to="." method="_on_ClimbingGear_collected"]
+[connection signal="body_entered" from="Stage1/Items/Kite" to="." method="_on_Kite_collected"]
 [connection signal="body_entered" from="Stage1/Tree" to="." method="_on_Tree_body_entered"]
