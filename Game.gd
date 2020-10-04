@@ -81,6 +81,8 @@ func _on_Feather6_collected(_body):
 
 func _on_Axe_collected(_body):
 	print("Axe collected")
+	$HUD/AxeAquired.show()
+	$HUD/ItemTimer.start()
 	$Player.has_axe = true
 	$Stage1/Items/Axe.queue_free()
 	$Stage2/Items/Axe.queue_free()
@@ -88,6 +90,8 @@ func _on_Axe_collected(_body):
 	
 func _on_ClimbingGear_collected(_body):
 	print("Climbing gear collected")
+	$HUD/ClimbingGearAquired.show()
+	$HUD/ItemTimer.start()
 	$Player.has_climbing_gear = true
 	$Stage1/Items/ClimbingGear.queue_free()
 	$Stage2/Items/ClimbingGear.queue_free()
@@ -95,6 +99,8 @@ func _on_ClimbingGear_collected(_body):
 	
 func _on_Kite_collected(_body):
 	print("Kite collected")
+	$HUD/KiteAquired.show()
+	$HUD/ItemTimer.start()
 	$Player.has_kite = true
 	$Stage1/Items/Kite.queue_free()
 	$Stage2/Items/Kite.queue_free()
@@ -103,6 +109,7 @@ func _on_Kite_collected(_body):
 func _on_Tree_body_entered(body):
 	if (body == $Player) and not $Stage1/Tree.is_chopped and $Player.has_axe:
 		print("Chopping tree")
+		$TreeFalling.play()
 		$AnimationPlayer.play("fall")
 		$Stage1/Tree.is_chopped = true
 		$Stage2/Tree.is_chopped = true
@@ -115,3 +122,7 @@ func check_win():
 	if feathers_remaining <= 0:
 		$HUD/YouWin.show()
 
+func _on_ItemTimer_timeout():
+	$HUD/AxeAquired.hide()
+	$HUD/ClimbingGearAquired.hide()
+	$HUD/KiteAquired.hide()

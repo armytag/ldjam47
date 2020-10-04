@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://Assets/tileset.png" type="Texture" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://Assets/climbing_gear.png" type="Texture" id=8]
 [ext_resource path="res://Assets/kite.png" type="Texture" id=9]
 [ext_resource path="res://Assets/item.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Inconsolata-Regular.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://Assets/treefall.wav" type="AudioStream" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -366,6 +368,26 @@ tracks/1/keys = {
 "values": [ 0.0, 60.0 ]
 }
 
+[sub_resource type="DynamicFont" id=41]
+size = 48
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=42]
+size = 96
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=43]
+size = 64
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=44]
+size = 64
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=45]
+size = 64
+font_data = ExtResource( 11 )
+
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
 
@@ -469,6 +491,7 @@ shape = SubResource( 40 )
 
 [node name="Tree" parent="Stage1" instance=ExtResource( 7 )]
 position = Vector2( 1291.31, 62.8981 )
+rotation = 1.0472
 scale = Vector2( 2, 2 )
 z_index = -1
 
@@ -573,6 +596,7 @@ shape = SubResource( 40 )
 
 [node name="Tree" parent="Stage2" instance=ExtResource( 7 )]
 position = Vector2( 1291.31, 62.8981 )
+rotation = 1.0472
 scale = Vector2( 2, 2 )
 z_index = -1
 
@@ -594,6 +618,7 @@ margin_left = 16.0
 margin_top = 16.0
 margin_right = 40.0
 margin_bottom = 14.0
+custom_fonts/font = SubResource( 41 )
 text = "Feathers Remaining: 6"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -605,21 +630,83 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -36.0
-margin_top = -7.0
-margin_right = 36.0
-margin_bottom = 7.0
+margin_left = -240.0
+margin_top = -51.0
+margin_right = 240.0
+margin_bottom = 51.0
+custom_fonts/font = SubResource( 42 )
 text = "You win!!!"
+align = 1
+valign = 1
 uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AxeAquired" type="Label" parent="HUD"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -176.0
+margin_top = -34.0
+margin_right = 176.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 43 )
+text = "Axe aquired"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ClimbingGearAquired" type="Label" parent="HUD"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -336.0
+margin_top = -34.0
+margin_right = 336.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 44 )
+text = "Climbing Gear aquired"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="KiteAquired" type="Label" parent="HUD"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -192.0
+margin_top = -34.0
+margin_right = 192.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 45 )
+text = "Kite aquired"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemTimer" type="Timer" parent="HUD"]
+wait_time = 3.0
+one_shot = true
 
 [node name="FeatherTone" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 
 [node name="ItemTone" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+
+[node name="TreeFalling" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
 [connection signal="body_entered" from="Stage1/Ground/LeftZone" to="." method="_on_Ground1_LeftZone_entered"]
 [connection signal="body_entered" from="Stage1/Ground/RightZone" to="." method="_on_Ground1_RightZone_entered"]
 [connection signal="body_entered" from="Stage1/Feathers/Feather1" to="." method="_on_Feather1_collected"]
@@ -644,3 +731,4 @@ stream = ExtResource( 10 )
 [connection signal="body_entered" from="Stage2/Items/ClimbingGear" to="." method="_on_ClimbingGear_collected"]
 [connection signal="body_entered" from="Stage2/Items/Kite" to="." method="_on_Kite_collected"]
 [connection signal="body_entered" from="Stage2/Tree" to="." method="_on_Tree_body_entered"]
+[connection signal="timeout" from="HUD/ItemTimer" to="." method="_on_ItemTimer_timeout"]
