@@ -28,15 +28,19 @@ func _on_Feather1_collected():
 	$Stage1/Feathers/Feather1.queue_free()
 
 
-func _on_Stage1_Axe_entered(body):
+func _on_Axe_collected(body):
 	print("Axe collected")
 	$Player.has_axe = true
 	$Stage1/Items/Axe.queue_free()
 	
-
+func _on_ClimbingGear_collected(body):
+	print("Climbing gear collected")
+	$Player.has_climbing_gear = true
+	$Stage1/Items/ClimbingGear.queue_free()
 
 func _on_Tree_body_entered(body):
 	if (body == $Player) and not $Stage1/Tree.is_chopped and $Player.has_axe:
 		print("Chopping tree")
 		$AnimationPlayer.play("fall")
 		$Stage1/Tree.is_chopped = true
+

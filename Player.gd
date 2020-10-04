@@ -51,5 +51,9 @@ func _physics_process(delta):
 		$Sprite.animation = "walking"
 	
 	velocity = move_and_slide(velocity, Vector2(0,-1))
+	if position.y > 3200:
+		position.y = -3180
+	elif position.y < -3200:
+		position.y = 3180
 	
 	is_gliding = false
