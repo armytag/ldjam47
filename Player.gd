@@ -39,20 +39,27 @@ func _physics_process(delta):
 	if is_gliding:
 		velocity.y = min(velocity.y, GLIDE_SPEED)
 	
-	if velocity.x > 0:
-		$Sprite.flip_h = false
-	elif velocity.x < 0:
-		$Sprite.flip_h = true
-		
-	if velocity.x == 0:
-		$Sprite.animation = "standing"
-	else:
-		$Sprite.animation = "walking"
-	
 	velocity = move_and_slide(velocity, Vector2(0,-1))
 	if position.y > 3200:
 		position.y = -3180
 	elif position.y < -3200:
 		position.y = 3180
+	
+	if is_gliding:
+		$Sprite.animation = "gliding"
+	elif velocity.y < 0:
+		$Sprite.animation = "jumping"
+	elif velocity.y > 0: 
+		$Sprite.animation = "falling"
+	elif velocity.x == 0:
+		$Sprite.animation = "standing"
+	else:
+		$Sprite.animation = "walking"
+	
+	if velocity.x > 0:
+		$Sprite.flip_h = false
+	elif velocity.x < 0:
+		$Sprite.flip_h = true
+		
 	
 	is_gliding = false
