@@ -1,13 +1,15 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Assets/tileset.png" type="Texture" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game.gd" type="Script" id=3]
+[ext_resource path="res://Assets/bell.wav" type="AudioStream" id=4]
 [ext_resource path="res://Feather.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/axe.png" type="Texture" id=6]
 [ext_resource path="res://Tree.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/climbing_gear.png" type="Texture" id=8]
 [ext_resource path="res://Assets/kite.png" type="Texture" id=9]
+[ext_resource path="res://Assets/item.wav" type="AudioStream" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -612,6 +614,12 @@ uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="FeatherTone" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="ItemTone" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
 [connection signal="body_entered" from="Stage1/Ground/LeftZone" to="." method="_on_Ground1_LeftZone_entered"]
 [connection signal="body_entered" from="Stage1/Ground/RightZone" to="." method="_on_Ground1_RightZone_entered"]
 [connection signal="body_entered" from="Stage1/Feathers/Feather1" to="." method="_on_Feather1_collected"]

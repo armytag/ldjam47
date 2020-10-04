@@ -84,18 +84,21 @@ func _on_Axe_collected(_body):
 	$Player.has_axe = true
 	$Stage1/Items/Axe.queue_free()
 	$Stage2/Items/Axe.queue_free()
+	$ItemTone.play()
 	
 func _on_ClimbingGear_collected(_body):
 	print("Climbing gear collected")
 	$Player.has_climbing_gear = true
 	$Stage1/Items/ClimbingGear.queue_free()
 	$Stage2/Items/ClimbingGear.queue_free()
+	$ItemTone.play()
 	
 func _on_Kite_collected(_body):
 	print("Kite collected")
 	$Player.has_kite = true
 	$Stage1/Items/Kite.queue_free()
 	$Stage2/Items/Kite.queue_free()
+	$ItemTone.play()
 
 func _on_Tree_body_entered(body):
 	if (body == $Player) and not $Stage1/Tree.is_chopped and $Player.has_axe:
@@ -106,6 +109,7 @@ func _on_Tree_body_entered(body):
 		
 func update_feather_count():
 	$HUD/FeathersCollected.text = "Feathers Remaining: " + String(feathers_remaining)
+	$FeatherTone.play()
 
 func check_win():
 	if feathers_remaining <= 0:
