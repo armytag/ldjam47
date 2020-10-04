@@ -16,4 +16,8 @@ func _ready():
 
 func _on_Ground1_LeftZone_entered(_area):
 	print("Ground1 left zone")
-	$Ground2.position.x = $Ground1.position.x - STAGE_LENGTH
+#	$Ground2.position.x = $Ground1.position.x - STAGE_LENGTH
+
+
+func _on_Ground1_RightZone_entered(body):
+	print("Ground1 right zone")
