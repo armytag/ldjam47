@@ -5,6 +5,7 @@ var JUMP_SPEED = -1000
 var GRAVITY = 1800
 var GLIDE_SPEED = 100
 var velocity = Vector2()
+var has_axe = false
 var has_climbing_gear = false
 var has_kite = false
 var is_gliding = false
