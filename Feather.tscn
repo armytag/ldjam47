@@ -12,9 +12,6 @@ func _ready():
 	pass # Replace with function body.
 
 
-func _on_Feather_body_entered(body):
-	emit_signal(\"feather_collected\")
-	queue_free()
 "
 
 [sub_resource type="CapsuleShape2D" id=1]

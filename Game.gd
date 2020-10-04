@@ -6,7 +6,7 @@ export (int) var STAGE_LENGTH = 4352
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Stage1/Tree.rotation_degrees = 0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,3 +33,10 @@ func _on_Stage1_Axe_entered(body):
 	$Player.has_axe = true
 	$Stage1/Items/Axe.queue_free()
 	
+
+
+func _on_Tree_body_entered(body):
+	if (body == $Player) and not $Stage1/Tree.is_chopped and $Player.has_axe:
+		print("Chopping tree")
+		$AnimationPlayer.play("fall")
+		$Stage1/Tree.is_chopped = true

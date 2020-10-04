@@ -11,8 +11,13 @@ var has_kite = false
 var is_gliding = false
 
 func _ready():
-	pass # Replace with function body.
+	reset()
 
+func reset():
+	has_axe = false
+	has_climbing_gear = false
+	has_kite = false
+	is_gliding = false
 
 func get_input():
 	velocity.x = 0
